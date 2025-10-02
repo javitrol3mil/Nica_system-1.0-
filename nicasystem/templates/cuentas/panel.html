@@ -1,0 +1,138 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Login — Nica System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    :root{
+        --bg-image: url("{% static 'Fondo.jpg' %}");
+        --hero-image: url("{% static 'Fondo.jpg' %}");
+        --tint: rgba(24,15,51,.55);
+        --panel: rgba(255,255,255,.92);
+        --accent: #6d28d9;
+        --accent-2: #a855f7;
+    }
+    *{box-sizing:border-box}
+    body{
+        margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+        background: var(--tint), var(--bg-image) center/cover no-repeat fixed;
+        font-family: Inter, system-ui, Segoe UI, Roboto, Arial; color:#1f2430;
+    }
+    .card{ width:min(92vw, 420px); background:var(--panel); border-radius:18px; box-shadow:0 20px 50px rgba(0,0,0,.35); overflow:hidden }
+    .hero{ height:180px; background:var(--hero-image) center/cover no-repeat; position:relative }
+    .hero h1{ position:absolute; left:0; right:0; bottom:10px; text-align:center; color:white; text-shadow:0 3px 10px rgba(0,0,0,.6); font-size:34px; letter-spacing:1px; margin:0 }
+    .tabs{ display:flex; gap:20px; justify-content:center; margin:12px 0 6px; font-weight:800 }
+    .tabs button{ background:transparent; border:0; padding:8px 6px; cursor:pointer; font-size:18px }
+    .tabs .active{ color:var(--accent) }
+    .panel{ padding:16px 18px 20px }
+    input{ width:100%; padding:12px; margin:6px 0 10px; border-radius:12px; border:1px solid #e6e8ef; background:#fff }
+    button{ width:100%; padding:12px; border:0; border-radius:12px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; font-weight:700; cursor:pointer }
+    .row{ display:flex; gap:10px; align-items:center; justify-content:space-between; margin:2px 0 10px }
+    .hint{ text-align:center; margin-top:10px; color:#6b7280 }
+    .errors{ color:#ef4444; margin:8px 0; font-size:14px }
+</style>
+</head>
+<body>
+    <div class="card">
+        <div class="hero"><h1>Nica System</h1></div>
+        <div class="panel">
+            {% if request.GET.next %}
+                <div class="alert alert-warning" role="alert" style="margin-bottom:12px">
+                    Para vender, <strong>inicia sesión o regístrate</strong> primero.
+                </div>
+            {% endif %}
+            <div class="tabs">
+                <button id="tabLogin" class="active">Login</button>
+                <button id="tabReg">Register</button>
+            </div>
+
+            <!-- LOGIN -->
+            <div id="viewLogin">
+                <form method="post" action="/cuentas/login/">
+                    {% csrf_token %}
+                    {% if login_form.non_field_errors %}
+                        <div class="errors">{{ login_form.non_field_errors }}</div>
+                    {% endif %}
+
+                    <div>
+                        {{ login_form.username }}
+                        {% for e in login_form.username.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div>
+                        {{ login_form.password }}
+                        {% for e in login_form.password.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div class="row">
+                        <label><input type="checkbox" name="remember"> recordarme</label>
+                    </div>
+                    <button type="submit">Entrar</button>
+                </form>
+                <p class="hint">¿No tienes cuenta? → <a href="#" id="goReg">Register</a></p>
+            </div>
+
+            <!-- REGISTRO -->
+            <div id="viewReg" style="display:none">
+                <form method="post" action="/cuentas/registro/">
+                    {% csrf_token %}
+                    {% if registro_form.non_field_errors %}
+                        <div class="errors">{{ registro_form.non_field_errors }}</div>
+                    {% endif %}
+
+                <div>
+                    {{ registro_form.username }}
+                    {% for e in registro_form.username.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+                </div>
+
+                <div>
+                    {{ registro_form.first_name }}
+                    {% for e in registro_form.first_name.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+                </div>
+
+                <div>
+                    {{ registro_form.last_name }}
+                    {% for e in registro_form.last_name.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+                </div>
+
+                <div>
+                    {{ registro_form.email }}
+                    {% for e in registro_form.email.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+                </div>
+
+                <div>
+                    {{ registro_form.password1 }}
+                    {% for e in registro_form.password1.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+                </div>
+
+                <div>
+                    {{ registro_form.password2 }}
+                    {% for e in registro_form.password2.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+                </div>
+
+                <button type="submit">Crear cuenta</button>
+            </form>
+            <p class="hint"><a href="#" id="goLogin">Volver a Login</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+function swap(to){
+    document.getElementById("viewLogin").style.display = (to==="login"?"block":"none");
+    document.getElementById("viewReg").style.display   = (to==="reg"  ?"block":"none");
+    document.getElementById("tabLogin").classList.toggle("active", to==="login");
+    document.getElementById("tabReg").classList.toggle("active", to==="reg");
+}
+document.getElementById("tabLogin").onclick = ()=>swap("login");
+document.getElementById("tabReg").onclick   = ()=>swap("reg");
+document.getElementById("goReg").onclick    = (e)=>{e.preventDefault();swap("reg");}
+document.getElementById("goLogin").onclick  = (e)=>{e.preventDefault();swap("login");}
+// Server-side indicator
+const activeTab = "{{ active_tab|default:'login' }}";
+if(activeTab === "reg"){ swap("reg"); } else { swap("login"); }
+</script>
+</body>
+</html>

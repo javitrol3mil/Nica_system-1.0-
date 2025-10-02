@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Catálogo — Nicasystem{% endblock %}
+{% block content %}
+<div class="container">
+    <form class="row g-2 mb-3">
+        <div class="col"><input name="q" value="{{ q }}" class="form-control" placeholder="Buscar producto..."></div>
+        <div class="col-auto"><button class="btn btn-outline-primary">Buscar</button></div>
+    </form>
+    <div class="row g-4">
+        {% for p in productos %}
+        <div class="col-6 col-md-3">
+            <div class="card h-100">
+                {% if p.image_url %}<img src="{{ p.image_url }}" class="card-img-top" alt="{{ p.name }}">{% endif %}
+                <div class="card-body">
+                    <h3 class="h6 mb-1"><a href="{{ p.get_absolute_url|default:'/catalogo/'|add:p.slug|add:'/' }}">{{ p.name }}</a></h3>
+                    <div class="small text-muted">C$ {{ p.price }}</div>
+                    <a class="btn btn-sm btn-primary mt-2" href="/carrito/agregar/{{ p.id }}/">Añadir</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12"><div class="alert alert-warning">Sin productos.</div></div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

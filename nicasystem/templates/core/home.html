@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Inicio — Nicasystem{% endblock %}
+{% block content %}
+<div class="container">
+    <section class="row align-items-center mb-4">
+        <div class="col-md-6"><h2 class="display-6 fw-bold">Tienda — Online</h2></div>
+        <div class="col-md-6"><p class="lead mb-0">Tu tienda confiable en línea.<br>100% Nicaragüense</p></div>
+    </section>
+
+
+    <section class="mb-5">
+        <div class="row g-4">
+            {% for c in categories %}
+            <div class="col-6 col-md-3">
+                <div class="card h-100 shadow-sm">
+                    {% if c.image_url %}<img src="{{ c.image_url }}" class="card-img-top" alt="{{ c.name }}">{% endif %}
+                    <div class="card-body"><h3 class="h6 text-center mb-0">{{ c.name }}</h3></div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12"><div class="alert alert-info">Crea categorías en el admin.</div></div>
+            {% endfor %}
+        </div>
+    </section>
+
+
+    <section class="row align-items-center g-4">
+        <div class="col-md-6">
+            {% if featured and featured.image_url %}
+                <img src="{{ featured.image_url }}" class="img-fluid rounded shadow" alt="{{ featured.name }}">
+            {% else %}
+                <div class="bg-light border rounded p-5 text-center text-muted">Sin imagen</div>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h2 class="h3 fw-bold">{{ featured.name|default:"Producto destacado" }}</h2>
+            {% if featured %}
+                <p class="fs-5 fw-semibold">C$ {{ featured.price }}</p>
+                <p>{{ featured.description }}</p>
+                <a class="btn btn-primary" href="/catalogo/">Comprar ahora</a>
+            {% else %}
+                <p class="text-muted">Marca un producto como destacado.</p>
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}

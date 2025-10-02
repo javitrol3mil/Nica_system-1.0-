@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ p.name }} — Nicasystem{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row g-4">
+        <div class="col-md-6">{% if p.image_url %}<img src="{{ p.image_url }}" class="img-fluid rounded border">{% endif %}</div>
+        <div class="col-md-6">
+            <h1 class="h3">{{ p.name }}</h1>
+            <p class="fs-5">C$ {{ p.price }}</p>
+            <p>{{ p.description }}</p>
+            <p class="small">Categoría: {{ p.category.name }}</p>
+            <p class="small">Tags: {% for t in p.tags.all %}<span class="badge bg-secondary me-1">{{ t.name }}</span>{% empty %}—{% endfor %}</p>
+            <a class="btn btn-primary" href="/carrito/agregar/{{ p.id }}/">Añadir al carrito</a>
+        </div>
+    </div>
+
+    <hr class="my-4">
+    <h2 class="h5">Relacionados</h2>
+    <div class="row g-3">
+        {% for r in relacionados %}
+        <div class="col-6 col-md-3"><a href="/catalogo/{{ r.slug }}/">{{ r.name }}</a></div>
+        {% empty %}<div class="col-12 text-muted small">Sin relacionados.</div>{% endfor %}
+    </div>
+</div>
+{% endblock %}

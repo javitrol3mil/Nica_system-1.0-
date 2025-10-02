@@ -1,0 +1,40 @@
+.card img { object-fit: cover; height: 220px; }
+
+/* chip de usuario compacto */
+.ns-userchip {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    border: 2px solid #111;
+    border-radius: 999px;
+    padding: .2rem .6rem;
+    background: #fff;
+    cursor: pointer;
+}
+
+.ns-usericon {
+    width: 28px;   /* ajusta aquí el tamaño */
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.ns-usertext {
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: .05em;
+}
+
+/* --- User chip/navbar --- */
+/* Chip de usuario (navbar) */
+.ns-userchip{
+    display:inline-flex;align-items:center;gap:.4rem;
+    border:2px solid #111;border-radius:999px;padding:.2rem .6rem;
+    background:#fff;cursor:pointer
+}
+.ns-usericon{
+    width:28px;height:28px;object-fit:cover;border-radius:50%
+}
+.ns-usertext{
+    font-weight:600;font-size:.9rem;letter-spacing:.05em
+}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Carrito — Nicasystem{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="h4">Tu carrito</h1>
+    <table class="table">
+        <thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th></th></tr></thead>
+        <tbody>
+            {% for it in items %}
+        <tr>
+            <td>{{ it.p.name }}</td>
+            <td>{{ it.qty }}</td>
+            <td>C$ {{ it.p.price }}</td>
+            <td>C$ {{ it.subtotal }}</td>
+            <td><a class="btn btn-sm btn-outline-danger" href="/carrito/quitar/{{ it.p.id }}/">Quitar</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-muted">Vacío.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="text-end fw-bold">Total: C$ {{ total }}</div>
+<div class="mt-3 d-flex gap-2">
+    <a class="btn btn-outline-secondary" href="/carrito/vaciar/">Vaciar</a>
+    <a class="btn btn-primary" href="#">Proceder al pago (demo)</a>
+</div>
+</div>
+{% endblock %}
