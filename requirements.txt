@@ -1,0 +1,10 @@
+asgiref==3.8.1
+Django==5.1.2
+sqlparse==0.5.1
+tzdata==2024.2
+
+#Opcionales si usás imágenes en campos de modelos más adelante:
+Pillow==11.0.0
+
+#Para mejorar formularios (si al final decidís usarlo):
+django-widget-tweaks==1.5.0
