@@ -39,4 +39,4 @@ python manage.py runserver
 # Nos debera de quedar de la siguiente manera:
 <img width="895" height="269" alt="Image" src="https://github.com/user-attachments/assets/8068029b-e1db-4154-805e-29b71f213638" />
 
-Ya luego solo abrimos la URL: http://127.0.0.1:800/
+Ya luego solo abrimos la URL: http://127.0.0.1:8000
