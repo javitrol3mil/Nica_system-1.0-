@@ -12,7 +12,7 @@
 ## Guia de Instalación 👨‍💻
 
 ### 1. Primero Deberas descargar el repositorio brindado en Github
-### 2. Luego Tendras que Dirigirte al Visual Studio CODE y Abrir la Carpeta "Avances-Insumos-Smart-3"
+### 2. Luego Tendras que Dirigirte al Visual Studio CODE y Abrir la Carpeta "Nica_system-1.0-"
 ### 3. Luego te dirigiras a la terminal y colocaras los siguientes Comandos
 
 ```bash
